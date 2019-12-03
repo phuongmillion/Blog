@@ -2,8 +2,9 @@ from django.urls import path
 
 from . import views
 
-app_name = 'organizer'
+app_name = 'blog'
 
 urlpatterns = [
+    path('', views.tag_detail, name='index'),
 
 ]
