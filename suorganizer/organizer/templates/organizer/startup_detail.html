@@ -14,6 +14,8 @@
              <dd><a href="">
                 {{ tag.name|title }}
              </a></dd>
+            {% empty %}
+            There are no tag is available
              {% endfor %}
 
      </dl>
