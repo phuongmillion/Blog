@@ -5,7 +5,9 @@ from . import views
 app_name = 'organizer'
 
 urlpatterns = [
-    path('', views.tag_list, name='tag_list'),
-    path('tag/<str:slug>', views.tag_detail, name='tag_detail'),
+    path('tag/', views.tag_list, name='tag_list'),
+    path('tag/<slug:slug>', views.tag_detail, name='tag_detail'),
+    path('startup/', views.startup_list, name='startup_list'),
+    path('startup/<slug:slug>', views.startup_detail, name='startup_detail'),
 ]
 
