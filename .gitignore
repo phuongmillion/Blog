@@ -1,2 +1,12 @@
+venv/
+*.pyc*
+*/.idea/
+**/.idea/
+*/__pycache__*
 __pycache__
-groundhog.log
+*.pyc
+**/groundhog.properties
+*/__init__.py
+*.dat
+*.log
+**/data.json
