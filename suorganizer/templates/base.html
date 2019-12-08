@@ -21,6 +21,19 @@
                     <h1>Startup Organizer</h1>
                 </header>
                 <main>
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="{% url 'blog:post_list' %}">
+                                Blog</a></li>
+                            <li>
+                                <a href="{% url 'organizer:startup_list' %}">
+                                Startups</a></li>
+                            <li>
+                                <a href="{% url 'organizer:tag_list' %}">
+                                Tags</a></li>
+                        </ul>
+                    </nav>
                     {% block content %}
                         This is default content!
                     {% endblock %}
