@@ -10,16 +10,15 @@
         {{ form.non_field_errors }}
         {{ form.name.errors }}
         <p>
-            <label for="id_name">Name:</label>
+            <label for="{{form.name.id_for_label}}">{{ form.name.label }}:</label>
             {{ form.name }}
-            <input id="id_name" maxlength="31" name="name" type="text"/>
+            <!--<input id="id_name" maxlength="31" name="name" type="text"/>-->
         </p>
-
         {{ form.slug.errors }}
         <p>
-            <label for="id_slug">Slug:</label>
+            <label for="{{ form.slug.id_for_label }}">{{ form.slug.label }}:</label>
             {{ form.slug }}
-            <input id="id_slug" maxlength="31" name="slug" type="text"/>
+            <!--<input id="id_slug" maxlength="31" name="slug" type="text"/>-->
             <span class="helptext">
                 {{ form.slug.help_text }}
             </span>

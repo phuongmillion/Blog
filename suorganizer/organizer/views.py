@@ -17,13 +17,16 @@ def tag_detail(request, slug):
 
 def tag_create(request):
     if request.method == 'POST':
-        form = request.POST
-        tf = TagForm({'name': form['name'], 'slug': form['slug']})
-        print(tf.errors.as_json())
-        print(tf.errors)
-        if tf.errors:
-            render(request, 'organizer/tag_form.html', {'form': tf})
-    return render(request, 'organizer/tag_form.html', {})
+        form = TagForm(request.POST)
+        print(form.errors.as_json())
+        print(form.errors)
+        if form.errors:
+            return render(request, 'organizer/tag_form.html', {'form': form})
+        else:
+            return render(request, 'organizer/tag_form.html', {'form': form})
+    else:
+        form = TagForm()
+        return render(request, 'organizer/tag_form.html', {'form': form})
 
 
 def startup_list(request):
