@@ -11,5 +11,6 @@ urlpatterns = [
     path('startup/', views.startup_list, name='startup_list'),
     path('startup/<slug:slug>', views.startup_detail, name='startup_detail'),
     path('startup/create/', views.StartupCreate.as_view(), name='startup_create'),
+    path('newslink/create/', views.NewsLinkCreate.as_view(), name='newslink_create'),
 ]
 

@@ -34,3 +34,24 @@ class PostCreate(View):
         else:
             return render(request, self.template, {'form': form})
 
+
+class PostUpdate(View):
+    form_class = PostForm
+    model = Post
+    template = 'blog/post_form_update.html'
+
+    def get_object(self, year, month, day, slug):
+        return get_object_or_404(self.model, pub_date='-'.join([year, month, day]), slug=slug)
+
+    def get(self, request, year, month, day, slug):
+        post = self.get_object(year, month, day, slug)
+        context = {'form': self.form_class(instance=post), 'post': post}
+        return render(request, self.template, context)
+
+    def post(self, request, year, month, day, slug):
+        post = self.get_object(year, month, day, slug)
+        form = self.form_class(request.POST, instance=post)
+        if form.is_valid():
+            new_post = form.save()
+        return redirect(new_post)
+

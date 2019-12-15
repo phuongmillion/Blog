@@ -26,3 +26,7 @@ class Post(models.Model):
         ordering = ['-pub_date', 'title']
         get_latest_by = 'pub_date'
 
+    def get_update_url(self):
+        return reverse('blog:post_update',
+                       kwargs={'year': self.pub_date.year, 'month': self.pub_date.month, 'day':self.pub_date.day, 'slug': self.slug})
+

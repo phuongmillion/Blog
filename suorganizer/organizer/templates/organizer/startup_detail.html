@@ -35,6 +35,9 @@
              </ul>
          </section>
      {% endif %}
+    <p>
+     <a href="{% url 'organizer:newslink_create' %}">
+     Add Article</a></p>
 
      {% if startup.blog_posts.all %}
          <section>

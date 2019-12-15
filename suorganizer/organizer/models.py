@@ -57,6 +57,5 @@ class NewsLink(models.Model):
         get_latest_by = 'pub_date'
 
     def get_absolute_url(self):
-        return reverse('organizer:tag_detail',
-                       kwargs=({'slug': self.slug}))
+        return self.startups.get_absolute_url()
 

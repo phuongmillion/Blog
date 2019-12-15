@@ -3,8 +3,24 @@ from django.shortcuts import render, get_object_or_404, render_to_response, redi
 # Create your views here.
 from django.views.generic.base import View
 
-from .models import Tag, Startup
-from .forms import TagForm, StartupForm
+from .models import Tag, Startup, NewsLink
+from .forms import TagForm, StartupForm, NewsLinkForm
+
+
+class ObjectCreateMixin:
+    form_class = None
+    template = ''
+
+    def get(self, request):
+        return render(request, self.template, {'form': self.form_class()})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            new_startup = form.save()
+            return redirect(new_startup)
+        else:
+            return render(request, self.template, {'form': form})
 
 
 def tag_list(request):
@@ -17,20 +33,10 @@ def tag_detail(request, slug):
     return render(request, 'organizer/tag_detail.html', {'tag': tag})
 
 
-class TagCreate(View):
+class TagCreate(ObjectCreateMixin, View):
     form_class = TagForm
     template = 'organizer/tag_form.html'
 
-    def get(self, request):
-        return render(request, self.template, {'form': self.form_class()})
-
-    def post(self, request):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            new_tag = form.save()
-            return redirect(new_tag)
-        else:
-            return render(request, self.template, {'form': form})
 
 # def tag_create(request):
 #     if request.method == 'POST':
@@ -53,17 +59,12 @@ def startup_detail(request, slug):
     return render(request, 'organizer/startup_detail.html', {'startup': startup})
 
 
-class StartupCreate(View):
+class StartupCreate(ObjectCreateMixin, View):
     form_class = StartupForm
     template = 'organizer/startup_form.html'
 
-    def get(self, request):
-        return render(request, self.template, {'form': self.form_class()})
 
-    def post(self, request):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            new_startup = form.save()
-            return redirect(new_startup)
-        else:
-            return render(request, self.template, {'form': form})
+class NewsLinkCreate(ObjectCreateMixin, View):
+    form_class = NewsLinkForm
+    template = 'organizer/newslink_form.html'
+
