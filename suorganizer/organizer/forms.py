@@ -21,6 +21,10 @@ class TagForm(SlugCleanMixin, forms.ModelForm):
     def clean_name(self):
         return self.cleaned_data['name'].lower()
 
+    def save(self):
+        new_tag = Tag.objects.create(name=self.cleaned_data['name'], slug=self.cleaned_data['slug'])
+        return new_tag
+
 
 class NewsLinkForm(forms.ModelForm):
     class Meta:

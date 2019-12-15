@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+from django.urls import reverse
 
 
 class Tag(models.Model):
@@ -12,6 +13,10 @@ class Tag(models.Model):
 
     class Meta:
         ordering = ['name']
+
+    def get_absolute_url(self):
+        return reverse('organizer:tag_detail',
+                       kwargs=({'slug': self.slug}))
 
 
 class Startup(models.Model):
@@ -31,6 +36,10 @@ class Startup(models.Model):
         ordering = ['name']
         get_latest_by = 'founded_date'
 
+    def get_absolute_url(self):
+        return reverse('organizer:startup_detail',
+                       kwargs=({'slug': self.slug}))
+
 
 class NewsLink(models.Model):
     startups = models.ForeignKey(Startup, on_delete=models.CASCADE)
@@ -46,4 +55,8 @@ class NewsLink(models.Model):
         verbose_name = 'news article'
         ordering = ['-pub_date']
         get_latest_by = 'pub_date'
+
+    def get_absolute_url(self):
+        return reverse('organizer:tag_detail',
+                       kwargs=({'slug': self.slug}))
 

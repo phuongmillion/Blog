@@ -10,5 +10,6 @@ urlpatterns = [
     re_path(r'^post/(?P<year>[0-9]{4})/'
             r'(?P<month>[0-9]{1,2})/'
             r'(?P<day>[0-9]{1,2})/'
-            r'(?P<slug>[\w\-]+)/$', views.post_detail, name='post_detail')
+            r'(?P<slug>[\w\-]+)/$', views.post_detail, name='post_detail'),
+    path('post/create/', views.PostCreate.as_view(), name='post_create')
 ]

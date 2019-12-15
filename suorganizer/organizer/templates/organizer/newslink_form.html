@@ -1,0 +1,13 @@
+{% extends parent_templates|default:"organizer/base_organizer.html" %}
+
+{% block title %}
+    {{ block.super }} - NewsLink Tag
+{% endblock %}
+
+{% block content %}
+    <form action="{% url 'organizer:newslink_create' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create NewsLink</button>
+    </form>
+{% endblock %}

@@ -1,3 +1,11 @@
+{% extends parent_template|default:"blog/base_blog.html" %}
+
+{% block title %}
+{{ block.super }} Create Post
+{% endblock %}
+
+{% block content%}
+
 {% for post in post_list %}
     <article>
         <header>
@@ -17,7 +25,15 @@
             <a href="{{ post.get_absolute_url }}">
             Read more&hellip;</a>
         </p>
+
     </article>
+
 {% empty %}
         <p><em>No Blog Posts Available</em></p>
 {% endfor %}
+    <div>
+        <a href="{% url 'blog:post_create' %}">
+        Write New Blog Post</a>
+    </div>
+
+{% endblock %}

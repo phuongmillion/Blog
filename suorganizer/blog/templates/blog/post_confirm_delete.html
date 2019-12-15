@@ -1,0 +1,16 @@
+{% extends parent_templates|default:"organizer/base_organizer.html" %}
+
+{% block title %}
+    {{ block.super }} - Delete Post
+{% endblock %}
+
+{% block content %}
+    <form action="{% url 'organizer:post_delete' %}" method="post">
+        {% csrf_token %}
+        <p>
+            Are you sure to delete {{ post.title }}?
+        </p>
+        <a href="{{ post.get_absolute_url }}">Cancel</a>
+        <button type="submit">Delete Post</button>
+    </form>
+{% endblock %}

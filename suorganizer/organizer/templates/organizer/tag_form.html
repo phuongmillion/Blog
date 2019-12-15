@@ -7,22 +7,7 @@
 {% block content %}
     <form action="{% url 'organizer:tag_create' %}" method="post">
         {% csrf_token %}
-        {{ form.non_field_errors }}
-        {{ form.name.errors }}
-        <p>
-            <label for="{{form.name.id_for_label}}">{{ form.name.label }}:</label>
-            {{ form.name }}
-            <!--<input id="id_name" maxlength="31" name="name" type="text"/>-->
-        </p>
-        {{ form.slug.errors }}
-        <p>
-            <label for="{{ form.slug.id_for_label }}">{{ form.slug.label }}:</label>
-            {{ form.slug }}
-            <!--<input id="id_slug" maxlength="31" name="slug" type="text"/>-->
-            <span class="helptext">
-                {{ form.slug.help_text }}
-            </span>
-        </p>
+        {{ form.as_p }}
         <button type="submit">Create Tag</button>
     </form>
 {% endblock %}

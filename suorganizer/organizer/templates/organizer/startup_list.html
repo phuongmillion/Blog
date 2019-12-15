@@ -17,5 +17,9 @@
         <li><em>No Startups Available</em></li>
     {% endfor %}
 </ul>
+    <div>
+        <a href="{% url 'organizer:startup_create' %}">
+        Create New Startup </a>
+    </div>
 
 {% endblock %}
