@@ -1,7 +1,5 @@
 from django.urls import path, re_path
-
 from . import views
-from .models import Post
 
 app_name = 'blog'
 

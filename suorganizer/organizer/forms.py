@@ -36,3 +36,9 @@ class StartupForm(SlugCleanMixin, forms.ModelForm):
     class Meta:
         model = Startup
         fields = '__all__'
+
+    def save(self):
+        new_startup = Startup.objects.create(name=self.cleaned_data['name'], slug=self.cleaned_data['slug'],
+                                             description=self.cleaned_data['description'], founded_date=self.cleaned_data['founded_date'],
+                                             contact=self.cleaned_data['contact'], website=self.cleaned_data['website'])
+        return new_startup

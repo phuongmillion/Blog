@@ -53,5 +53,8 @@ class PostUpdate(View):
         form = self.form_class(request.POST, instance=post)
         if form.is_valid():
             new_post = form.save()
-        return redirect(new_post)
+            return redirect(new_post)
+        else:
+            context = {'form': form, 'post': post}
+            return render(request, self.template, context)
 

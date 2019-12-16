@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <form action="{% url 'organizer:post_create' %}" method="post">
+    <form action="{% url 'blog:post_create' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Create Post</button>
