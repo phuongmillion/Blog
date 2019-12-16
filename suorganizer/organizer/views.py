@@ -17,8 +17,8 @@ class ObjectCreateMixin:
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
-            new_startup = form.save()
-            return redirect(new_startup)
+            new_object = form.save()
+            return redirect(new_object)
         else:
             return render(request, self.template, {'form': form})
 
@@ -68,3 +68,30 @@ class NewsLinkCreate(ObjectCreateMixin, View):
     form_class = NewsLinkForm
     template = 'organizer/newslink_form.html'
 
+
+class NewsLinkUpdate(View):
+    form_class = NewsLinkForm
+    model = NewsLink
+    template = 'organizer/newslink_form.html'
+
+    def get(self, request, pk):
+        newslink = get_object_or_404(NewsLink, pk=pk)
+        context = {'form': self.form_class(instance=newslink), 'newslink': newslink}
+        return render(request, self.template, context)
+
+    # def post(self, request, pk):
+    #     newslink = get_object_or_404(NewsLink, pk=pk)
+    #     form = self.form_class(request.POST, instance=newslink)
+    #     if
+
+
+class TagUpdate(View):
+    form_class = TagCreate
+    model = Tag
+    template = 'organizer/tag_form.html'
+
+
+class StartupUpdate(View):
+    form_class = StartupForm
+    model = Startup
+    template = 'organizer/startup_form.html'

@@ -31,6 +31,11 @@ class NewsLinkForm(forms.ModelForm):
         model = NewsLink
         fields = '__all__'
 
+    def save(self):
+        new_tag = Tag.objects.create(title=self.cleaned_data['title'], pub_date=self.cleaned_data['pub_date'],
+                                     link=self.cleaned_data['link'], startups=self.cleaned_data['startups'])
+        return new_tag
+
 
 class StartupForm(SlugCleanMixin, forms.ModelForm):
     class Meta:
@@ -40,5 +45,6 @@ class StartupForm(SlugCleanMixin, forms.ModelForm):
     def save(self):
         new_startup = Startup.objects.create(name=self.cleaned_data['name'], slug=self.cleaned_data['slug'],
                                              description=self.cleaned_data['description'], founded_date=self.cleaned_data['founded_date'],
-                                             contact=self.cleaned_data['contact'], website=self.cleaned_data['website'])
+                                             contact=self.cleaned_data['contact'], website=self.cleaned_data['website'],
+                                             tags=self.cleaned_data['tags'], )
         return new_startup
