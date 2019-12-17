@@ -32,9 +32,9 @@ class NewsLinkForm(forms.ModelForm):
         fields = '__all__'
 
     def save(self):
-        new_tag = Tag.objects.create(title=self.cleaned_data['title'], pub_date=self.cleaned_data['pub_date'],
+        news_link = NewsLink.objects.create(title=self.cleaned_data['title'], pub_date=self.cleaned_data['pub_date'],
                                      link=self.cleaned_data['link'], startups=self.cleaned_data['startups'])
-        return new_tag
+        return news_link
 
 
 class StartupForm(SlugCleanMixin, forms.ModelForm):
@@ -45,6 +45,7 @@ class StartupForm(SlugCleanMixin, forms.ModelForm):
     def save(self):
         new_startup = Startup.objects.create(name=self.cleaned_data['name'], slug=self.cleaned_data['slug'],
                                              description=self.cleaned_data['description'], founded_date=self.cleaned_data['founded_date'],
-                                             contact=self.cleaned_data['contact'], website=self.cleaned_data['website'],
-                                             tags=self.cleaned_data['tags'], )
+                                             contact=self.cleaned_data['contact'], website=self.cleaned_data['website'])
+        tags = self.cleaned_data['tags']
+        new_startup.tags.set(tags)
         return new_startup

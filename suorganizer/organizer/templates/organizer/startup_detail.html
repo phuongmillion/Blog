@@ -31,6 +31,10 @@
                      <a href="{{ newslink.link }}">
                      {{ newslink.title|title }}</a>
                  </li>
+                 <li>
+                     <a href="{{ newslink.get_update_url }}">
+                     Edit Link</a>
+                 </li>
              {% endfor %}
              </ul>
          </section>
@@ -52,5 +56,8 @@
              </ul>
          </section>
      {% endif %}
-
+     <li>
+         <a href="{{ startup.get_update_url }}">
+         Edit Startup</a>
+     </li>
  </article>

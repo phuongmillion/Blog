@@ -33,3 +33,7 @@
     {% if not tag.startup_set.all and not tag.blog_posts.all %}
         <p>This tag is not related to any content.</p>
     {% endif %}
+     <li>
+         <a href="{{ tag.get_update_url }}">
+         Edit Tag</a>
+     </li>

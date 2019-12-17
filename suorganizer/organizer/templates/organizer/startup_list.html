@@ -10,8 +10,12 @@
 <ul>
     {% for startup in startup_list %}
          <li>
-            <a href="{% url 'organizer:startup_detail' slug=startup.slug %}">
+            <a href="{% url 'organizer:startup_detail' %}">
             {{ startup.name }}</a>
+        </li>
+        <li>
+             <a href="{{ startup.get_update_url }}">
+             Edit Startup</a>
         </li>
     {% empty %}
         <li><em>No Startups Available</em></li>

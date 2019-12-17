@@ -23,6 +23,27 @@ class ObjectCreateMixin:
             return render(request, self.template, {'form': form})
 
 
+class ObjectUpdateMixin:
+    form_class = None
+    model = None
+    template = ''
+
+    def get(self, request, slug):
+        obj = get_object_or_404(self.model, slug__iexact=slug)
+        context = {'form': self.form_class(instance=obj), self.model.__name__.lower(): obj}
+        return render(request, self.template, context)
+
+    def post(self, request, slug):
+        obj = get_object_or_404(self.model, slug__iexact=slug)
+        form = self.form_class(request.POST, instance=obj)
+        if form.is_valid():
+            new_object = form.save()
+            return redirect(new_object)
+        else:
+            context = {'form': form, self.model.__name__.lower(): obj}
+            return render(request, self.template, context)
+
+
 def tag_list(request):
     return render(request, 'organizer/tag_list.html', {'tag_list': Tag.objects.all()})
 
@@ -72,26 +93,30 @@ class NewsLinkCreate(ObjectCreateMixin, View):
 class NewsLinkUpdate(View):
     form_class = NewsLinkForm
     model = NewsLink
-    template = 'organizer/newslink_form.html'
+    template = 'organizer/newslink_form_update.html'
 
     def get(self, request, pk):
-        newslink = get_object_or_404(NewsLink, pk=pk)
-        context = {'form': self.form_class(instance=newslink), 'newslink': newslink}
+        news_link = get_object_or_404(NewsLink, pk=pk)
+        context = {'form': self.form_class(instance=news_link), 'newslink': news_link}
         return render(request, self.template, context)
 
-    # def post(self, request, pk):
-    #     newslink = get_object_or_404(NewsLink, pk=pk)
-    #     form = self.form_class(request.POST, instance=newslink)
-    #     if
+    def post(self, request, pk):
+        news_link = get_object_or_404(NewsLink, pk=pk)
+        form = self.form_class(request.POST, instance=news_link)
+        if form.is_valid():
+            news_link = form.save()
+            return redirect(news_link)
+        else:
+            return render(request, self.template, {'form': form, 'news_link': news_link})
 
 
-class TagUpdate(View):
+class TagUpdate(ObjectUpdateMixin, View):
     form_class = TagCreate
     model = Tag
-    template = 'organizer/tag_form.html'
+    template = 'organizer/tag_form_update.html'
 
 
-class StartupUpdate(View):
+class StartupUpdate(ObjectUpdateMixin, View):
     form_class = StartupForm
     model = Startup
-    template = 'organizer/startup_form.html'
+    template = 'organizer/startup_form_update.html'

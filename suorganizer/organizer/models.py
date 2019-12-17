@@ -18,6 +18,9 @@ class Tag(models.Model):
         return reverse('organizer:tag_detail',
                        kwargs=({'slug': self.slug}))
 
+    def get_update_url(self):
+        return reverse('organizer:tag_update', kwargs={'slug': self.slug})
+
 
 class Startup(models.Model):
     tags = models.ManyToManyField(Tag)
@@ -40,6 +43,9 @@ class Startup(models.Model):
         return reverse('organizer:startup_detail',
                        kwargs=({'slug': self.slug}))
 
+    def get_update_url(self):
+        return reverse('organizer:startup_update', kwargs={'slug': self.slug})
+
 
 class NewsLink(models.Model):
     startups = models.ForeignKey(Startup, on_delete=models.CASCADE)
@@ -58,4 +64,7 @@ class NewsLink(models.Model):
 
     def get_absolute_url(self):
         return self.startups.get_absolute_url()
+
+    def get_update_url(self):
+        return reverse('organizer:newslink_update', kwargs={'pk': self.pk})
 

@@ -1,13 +1,13 @@
 {% extends parent_templates|default:"organizer/base_organizer.html" %}
 
 {% block title %}
-    {{ block.super }} - Update Startup
+    {{ block.super }} - Update NewsLink
 {% endblock %}
 
 {% block content %}
-    <form action="{% url 'organizer:startup_update' tag.slug %}" method="post">
+    <form action="{% url 'organizer:newslink_update' newslink.pk %}" method="post">
         {% csrf_token %}
         {{ form.as_p}}
-        <button type="submit">Update Startup</button>
+        <button type="submit">Update NewsLink</button>
     </form>
 {% endblock %}
