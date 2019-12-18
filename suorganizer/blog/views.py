@@ -58,3 +58,21 @@ class PostUpdate(View):
             context = {'form': form, 'post': post}
             return render(request, self.template, context)
 
+
+class PostDelete(View):
+    form_class = PostForm
+    model = Post
+    template = 'blog/post_confirm_delete.html'
+
+    def get_object(self, year, month, day, slug):
+        return get_object_or_404(self.model, pub_date='-'.join([year, month, day]), slug=slug)
+
+    def get(self, request, year, month, day, slug):
+        post = self.get_object(year, month, day, slug)
+        return render(request, self.template, {'post': post})
+
+    def post(self, request, year, month, day, slug):
+        post = self.get_object(year, month, day, slug)
+        post.delete()
+        return redirect('blog:post_list')
+

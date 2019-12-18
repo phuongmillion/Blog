@@ -1,16 +1,16 @@
 {% extends parent_templates|default:"organizer/base_organizer.html" %}
 
 {% block title %}
-    {{ block.super }} - Delete Startup
+    {{ block.super }} - Delete NewsLink
 {% endblock %}
 
 {% block content %}
-    <form action="{{ startup.get_delete_url }}" method="post">
+    <form action="{{ newslink.get_delete_url }}" method="post">
         {% csrf_token %}
         <p>
             Are you sure to delete {{ startup.name }}?
         </p>
-        <a href="{{ startup.get_absolute_url }}">Cancel</a>
-        <button type="submit">Delete Startup</button>
+        <a href="{{ newslink.get_absolute_url }}">Cancel</a>
+        <button type="submit">Delete NewsLink</button>
     </form>
 {% endblock %}

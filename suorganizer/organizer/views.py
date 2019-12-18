@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, render_to_response, redirect
 
 # Create your views here.
@@ -42,6 +43,24 @@ class ObjectUpdateMixin:
         else:
             context = {'form': form, self.model.__name__.lower(): obj}
             return render(request, self.template, context)
+
+
+class ObjectDeleteMixin:
+    model = None
+    success_url = ''
+    template = ''
+
+    def get(self, request, slug):
+        obj = get_object_or_404(self.model, slug__iexact=slug)
+        context = {self.model.__name__.lower(): obj}
+        return render(request, self.template, context)
+
+    def post(self, request, slug):
+        obj = get_object_or_404(self.model, slug__iexact=slug)
+        obj.delete()
+        context = {self.model.__name__.lower(): obj}
+        # return HttpResponseRedirect(self.success_url)
+        return redirect(self.success_url)
 
 
 def tag_list(request):
@@ -110,6 +129,22 @@ class NewsLinkUpdate(View):
             return render(request, self.template, {'form': form, 'news_link': news_link})
 
 
+class NewsLinkDelete(View):
+    model = NewsLink
+    template = 'organizer/newslink_confirm_delete.html'
+
+    def get(self, request, pk):
+        news_link = get_object_or_404(NewsLink, pk=pk)
+        return render(request, self.template, {'newslink': news_link})
+
+    def post(self, request, pk):
+        news_link = get_object_or_404(NewsLink, pk=pk)
+        assert isinstance(news_link, NewsLink)
+        startup = news_link.startups
+        news_link.delete()
+        return redirect(startup)
+
+
 class TagUpdate(ObjectUpdateMixin, View):
     form_class = TagForm
     model = Tag
@@ -120,3 +155,15 @@ class StartupUpdate(ObjectUpdateMixin, View):
     form_class = StartupForm
     model = Startup
     template = 'organizer/startup_form_update.html'
+
+
+class TagDelete(ObjectDeleteMixin, View):
+    model = Tag
+    template = 'organizer/tag_confirm_delete.html'
+    success_url = 'organizer:tag_list'
+
+
+class StartupDelete(ObjectDeleteMixin, View):
+    model = Startup
+    template = 'organizer/startup_confirm_delete.html'
+    success_url = 'organizer:startup_list'

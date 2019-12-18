@@ -14,5 +14,10 @@ urlpatterns = [
             r'(?P<day>[0-9]{1,2})/'
             r'(?P<slug>[\w\-]+)/'
             r'update/$', views.PostUpdate.as_view(), name='post_update'),
-    path('post/create/', views.PostCreate.as_view(), name='post_create')
+    re_path(r'^post/(?P<year>[0-9]{4})/'
+            r'(?P<month>[0-9]{1,2})/'
+            r'(?P<day>[0-9]{1,2})/'
+            r'(?P<slug>[\w\-]+)/'
+            r'delete/$', views.PostDelete.as_view(), name='post_delete'),
+    path('post/create/', views.PostCreate.as_view(), name='post_create'),
 ]
