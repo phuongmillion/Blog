@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block content %}
-    <form action="{% url 'organizer:tag_update' startup.slug%}" method="post">
+    <form action="{% url 'organizer:tag_update' tag.slug %}" method="post">
         {% csrf_token %}
-        {{ form.as_p}}
+        {{ form.as_p }}
         <button type="submit">Update Tag</button>
     </form>
 {% endblock %}

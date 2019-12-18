@@ -111,7 +111,7 @@ class NewsLinkUpdate(View):
 
 
 class TagUpdate(ObjectUpdateMixin, View):
-    form_class = TagCreate
+    form_class = TagForm
     model = Tag
     template = 'organizer/tag_form_update.html'
 

@@ -10,7 +10,7 @@
 <ul>
     {% for startup in startup_list %}
          <li>
-            <a href="{% url 'organizer:startup_detail' %}">
+            <a href="{% url 'organizer:startup_detail' startup.slug%}">
             {{ startup.name }}</a>
         </li>
         <li>
